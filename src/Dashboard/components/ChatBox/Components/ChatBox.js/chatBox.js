@@ -13,11 +13,12 @@ import userAvatar from '../../../../../resources/userAvatar.png'
 import ScrollableFeed from 'react-scrollable-feed'
 import Button from '@material-ui/core/Button';
 import {firebase} from '../../Firebase/FirebaseConfig'
+import { Redirect } from "react-router-dom";
 
 function Chatbox( props ){
-    // alert(props.username,'5555555')
-    // console.log('jjjjjjj',sessionStorage.getItem('user'))
-    const { docs  } = UseFirestore(firebase.auth().currentUser.displayName);
+   
+    var { docs  } = UseFirestore(localStorage.getItem('userName'));
+
     const [msg, setMsg] =  useState('');
     const [username, setUsername] = useState('')
     const [to, setTo] = useState(props.to)
@@ -29,6 +30,17 @@ function Chatbox( props ){
         
     }, [docs])
 
+    if(props.username === ''){
+        return (
+            <Redirect to='/'/>
+        )
+    }
+    // if(localStorage.getItem('SinginFirebase')===true){
+    //     var { docs  } = UseFirestore(firebase.auth().currentUser.displayName);
+    // }
+    // if(localStorage.getItem('SigninGuest')===true){
+    //     var { docs  } = UseFirestore(localStorage.getItem('userName'));
+    // }
     let userName = props.username
     let Recciptant = props.to
 
@@ -65,14 +77,22 @@ function Chatbox( props ){
 
     return (
         <div>
+        {
+            (props.to) ? 
+        <div>
         <div className='message-box'>
-            <div style={{backgroundColor:'black',height:70,width:'100%' ,alignItems:'center',position:'fixed',zIndex:'100000'}} >
-            <div  style={{backgroundColor:'black',display:"flex",alignSelf:'center'}}>
-            <div className='active_user_list_image_container'>
-        <img style={{width:40 ,marginTop:10,marginLeft:20}} className='active_user_list_image' src={userAvatar} />
+            <div style={{backgroundColor:'#0B0C10',height:70,width:'60%' ,alignItems:'center',position:'fixed',zIndex:'100000'}} >
+            <div  style={{backgroundColor:'#0B0C10',display:"grid",gridTemplateColumns:'auto 45px',alignSelf:'center'}}>
+                <div style={{display:'grid',gridTemplateColumns:'100px auto'}}>
+            <div className='active_user_list_image_container' style={{}}>
+        <img style={{width:40 ,marginTop:10,marginLeft:20,border:'1px solid white'}} className='active_user_list_image' src={userAvatar} />
       </div>
-      <span style={{marginLeft:0,marginTop:10 ,fontSize:25,alignSelf:'flex-start' }} >{props.to}</span>
 
+      <span style={{marginLeft:-17,marginTop:10 ,fontSize:25,alignSelf:'flex-start' }} >{props.to}</span>
+      </div>
+      <div >
+      <AiOutlineClose onClick={HandleClose} style={{width:35,height:35,marginTop:10}}/>
+      </div>
             </div>
             {/* <div >
             <FcVideoCall onClick={handleListItemPressed} style={{height:30,width:30 }}/>
@@ -80,9 +100,9 @@ function Chatbox( props ){
             {/* <div >
             <AiOutlineClose onClick={HandleClose} style={{width:25,height:25,marginRight:0}}/>
             </div> */}
+
             </div>
             <div style={{display:'grid',marginTop:90}}>
-            
             {
                 docs && docs.map(doc => (
                 //     <div>
@@ -100,15 +120,42 @@ function Chatbox( props ){
                   (doc.userName === props.username ) ?
                   <div style={{float:'right',marginRight:10,wordWrap: 'break-word'}}>
                       
-                      <div class="box3 sb13 right-msg" ><span><span style={{color:'black' , fontWeight:'bold'}}>{doc.userName} :</span> {doc.msg}</span></div>
-                      {/* <span style={{color:'gray',fontSize:'10px'}}>{moment(doc.createdAt.toDate ( )).fromNow()}</span> */}
+                      <div class="box3 sb13 right-msg" ><span> {doc.msg}</span></div>
+                      
+                      {
+                  (doc.createdAt) ? 
+                  
+                      <span style={{color:'gray',fontSize:'10px'}}>{ moment(doc.createdAt.toDate ( )).fromNow() }</span>
+                  
+                  :
+                  <div></div>
+                      }
+                      
+                      {/* <span style={{color:'gray',fontSize:'10px'}}>{()=>{
+                          if( doc.createdAt){
+                              return(
+                          moment(doc.createdAt.toDate ( )).fromNow()
+                              )}
+                              else{
+                                  return 'hello'
+                              }
+                        }}</span> */}
                   {/* <span style={{color:'black' , fontWeight:'bold'}}>{doc.userName} :</span>   
               <span style={{color:'black'}}>{doc.msg}</span> */}
               </div>
               :
 
-              <div style={{marginLeft:10,wordWrap: 'break-word'}} >
-                <div class="box2 sb14 left-msg" ><span style={{display:'flex',width:'auto'}}><span style={{color:'black' , fontWeight:'bold'}}>{doc.userName} :</span> {doc.msg}</span></div>
+              <div style={{marginLeft:10,wordWrap:'break-word'}} >
+                <div class="box2 sb14 left-msg" ><span style={{display:'flex',width:'auto',color:'black'}}> {doc.msg}</span></div>
+
+{
+                  (doc.createdAt) ? 
+                  
+                      <span style={{color:'gray',fontSize:'10px'}}>{ moment(doc.createdAt.toDate ( )).fromNow() }</span>
+                  
+                  :
+                  <div></div>
+                      }
 
                    {/* <span style={{color:'black' , fontWeight:'bold'}}>{doc.userName} :</span>   
             
@@ -126,16 +173,20 @@ function Chatbox( props ){
                    </div>
                 ))
             }
-            
+            {/* cbced4 */}
             </div>
 
         </div>
-        <div style={{width:'100%',backgroundColor:"#cbced4",height:72,display:"flex",alignItems:"center"}}>
-        <input id='chat-box-input' style={{width:'80%',height:45,borderRadius:10}} onChange={ (e)=> {setMsg(e.target.value)}}  type="text"></input>
+        <div style={{width:'100%',backgroundColor:"whitesmoke",height:72,display:"flex",alignItems:"center",borderTop:'1px solid #e0dcdc'}}>
+        <input id='chat-box-input' style={{width:'75%',height:45,borderRadius:10,border:'solid 1px #c7c5c5',marginLeft:15}} onChange={ (e)=> {setMsg(e.target.value)}} type="text"></input>
         
-                <button style={{width:50,height:52,borderRadius:10}} onClick={ChnageHandler}><FiSend style={{width:25,height:25,color:'black'}} /></button>
+                <button id='chat-box-input-button'style={{width:50,height:52,borderRadius:10,border:'solid 1px #c7c5c5'}} onClick={ChnageHandler}><FiSend id='chat-box-input-button-icon' style={{width:25,height:25,transform:'translateY(3px)'}} /></button>
                 </div>
                 
+        </div>
+        :
+        <div style={{color:'gray',marginTop:50,marginLeft:30}}>Please Select a chat to send messages</div>
+        }
         </div>
     )
 }

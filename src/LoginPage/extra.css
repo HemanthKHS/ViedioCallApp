@@ -1,0 +1,160 @@
+
+div.loader {
+    position: fixed;
+    background-color: #1F2833;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+margin-left: 420px;
+transform: scale(0.6);
+margin-top: -100px;
+}
+div.loader p {
+    font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0.5em 0 0 0;
+    font-size: 30px;
+    animation-timing-function: linear;
+    animation-duration: 1.75s;
+    animation-name: logo;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+div.logo {
+    width: 120px;
+    height: 120px;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #1F2833;
+    animation-timing-function: linear;
+    animation-duration: 1.75s;
+    animation-name: logo;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+div.logo > div {
+    position: absolute;
+    animation-timing-function: linear;
+    animation-duration: 1.75s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+div.logo div.red {
+    top: 0;
+    left: 0;
+    width: 58px;
+    height: 58px;
+    opacity: 1;
+    background-color: #ef5226;
+    animation-name: red;
+}
+div.logo div.green {
+    top: 0;
+    right: 0;
+    width: 58px;
+    height: 58px;
+    opacity: 1;
+    background-color: #7dba07;
+    animation-name: green;
+}
+div.logo div.blue {
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    width: 58px;
+    height: 58px;
+    background-color: #08a3ea;
+    animation-name: blue;
+}
+div.logo div.yellow {
+    bottom: 0;
+    right: 0;
+    opacity: 1;
+    width: 58px;
+    height: 58px;
+    background-color: #fac018;
+    animation-name: yellow;
+}
+@keyframes red {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        background-color: white;
+   }
+    22.5%, 100% {
+        width: 58px;
+        height: 58px;
+        opacity: 1;
+        background-color: #ef5226;
+   }
+}
+@keyframes green {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        background-color: white;
+   }
+    22.5% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        background-color: white;
+   }
+    45%, 100% {
+        width: 58px;
+        height: 58px;
+        opacity: 1;
+        background-color: #7dba07;
+   }
+}
+@keyframes blue {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        background-color: white;
+   }
+    45% {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        background-color: white;
+   }
+    67.5%, 100% {
+        opacity: 1;
+        width: 58px;
+        height: 58px;
+        background-color: #08a3ea;
+   }
+}
+@keyframes yellow {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        background-color: white;
+   }
+    67.5% {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        background-color: 0;
+   }
+    90%, 100% {
+        opacity: 1;
+        width: 58px;
+        height: 58px;
+        background-color: #fac018;
+   }
+}
+@keyframes logo {
+    0% {
+        opacity: 0;
+   }
+    90%, 100% {
+        opactity: 1;
+   }
+}

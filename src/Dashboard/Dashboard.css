@@ -60,3 +60,12 @@
 .dashboard_logo_image {
   width: 60%;
 }
+
+#logoutButton:hover{
+cursor: pointer;
+}
+
+.dashboard_rooms_container{
+  box-shadow: 20px 20px 10px 20px #66FCF1;
+
+}

@@ -7,13 +7,16 @@ const styles = {
   buttonContainer: {
     display: 'flex',
     position: 'absolute',
-    bottom: '22%',
-    left: '35%'
+    bottom: '27%',
+    left: '30%',
+
   },
   icon: {
-    width: '25px',
-    height: '25px',
-    fill: '#e6e5e8'
+    width: '170px',
+    height: '50px',
+    // borderRadius:'100px',
+    fill: '#e6e5e8',
+    // boxShadow: '2px 2px 1px grey'
   }
 };
 

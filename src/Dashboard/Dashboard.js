@@ -18,6 +18,10 @@ import { AiOutlineClose } from 'react-icons/ai';
 import axios from 'axios';
 import { setTurnServers } from '../utils/webRTC/TURN';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { firebase } from "./components/ChatBox/Firebase/FirebaseConfig";
+import { Redirect } from "react-router-dom";
+
+
 const Dashboard = ({ username, callState }) => {
   useEffect(() => {
     axios.get('https://video-talker-backend.herokuapp.com/api/get-turn-credentials').then(
@@ -43,10 +47,20 @@ const Dashboard = ({ username, callState }) => {
     setwidth('55vw')
     
   }
+
+  const HandleLogout = () =>{
+    // alert('logout')
+    firebase.auth().signOut()
+    sessionStorage.clear()
+    window.location.href='/'
+    return (
+      <Redirect to='/'/>
+    )
+  }
   
  
   return (
-    <div style={{ display:'grid',gridTemplateColumns:'auto auto'}} className='dashboard_container background_main_color'>
+    <div style={{ display:'grid',gridTemplateColumns:'auto auto'}} className=''>
       {/* <div className='dashboard_right_section background_secondary_color'>
         <div  className='dashboard_active_users_list'>
           <ActiveUsersList />
@@ -55,34 +69,29 @@ const Dashboard = ({ username, callState }) => {
           <img className='dashboard_logo_image' src={logo} />
         </div>
       </div> */}
-      <div style={{minWidth:'60vw'}}className='dashboard_left_section'>
-        {/* <div></div> */}
-      <ExitToAppIcon style={{backgroundColor:'red'}}/>
-        <div className='dashboard_content_container'>
+      <div style={{minWidth:'60vw',backgroundColor:'#1F2833'}}className=''>
+        <div style={{width:'100%'}}>
+          <span id='logoutButton' onClick={HandleLogout} style={{display:'flex',float:'right',marginRight:15,marginTop:15}}>
+  <span style={{marginRight:10}}>
+          Logout
+          </span>
+      <ExitToAppIcon style={{height:30,width:30}}   />
+      </span>
+      </div>
+        <div style={{height:'73.8%'}} className='dashboard_content_container'>
         
-          <DirectCall style={{backgroundColor:'yellow',marginBottom:200}} />
-          <GroupCall />
+          <DirectCall style={{marginBottom:200}} />
+          <GroupCall style={{zIndex:10000}} />
           {callState !== callStates.CALL_IN_PROGRESS && <DashboardInformation username={username} />}
           
         </div>
-        <div className='dashboard_rooms_container background_secondary_color'>
-          <GroupCallRoomsList />
-          <div style={{marginLeft:'20%', zIndex:1000 , display:'grid' , gridTemplateColumns:'1fr 1fr 1fr'}}>
-            {/* <div style={{backgroundColor:'white'}}>
-            <Chat style={{backgroundColor:'white'}} username={username} to={'poco'}></Chat>
-   </div>
-            <div  style={{backgroundColor:'white',marginLeft:'10%'}}>
-            <Chat2 style={{background:'white'}}/>
-            </div>
-            <div  style={{backgroundColor:'white',marginLeft:'10%'}}>
-            <Chat3 style={{background:'white'}}/>
-            </div> */}
-            </div>
+        <div style={{backgroundColor:'#0B0C10'}} className='dashboard_rooms_container '>
+          <GroupCallRoomsList />  
         </div>
       </div>
       <div 
-      style={{width:'auto' ,overflow:'hidden'}} 
-       id='change-width' className='dashboard_right_section background_secondary_color'>
+      style={{width:'37vw',transform:'translateX(0px)' ,overflow:'hidden',backgroundColor:'white'}} 
+       id='change-width' className=''>
         {/* <div style={{display:'grid' ,gridTemplateColumns:'1.34fr 2.3fr'}}>
           <div style={{backgroundColor:'#282C34'}}></div>
           <div style={{backgroundColor:'black'}}> 
@@ -91,8 +100,8 @@ const Dashboard = ({ username, callState }) => {
         <AiOutlineClose style={{width:25,height:25,alignSelf:'center',marginLeft:50}}/>
         </div>
         </div> */}
-        <div  className='dashboard_active_users_list'>
-          <ActiveUsersList />
+        <div  className=''>
+          <ActiveUsersList  />
         </div>
         {/* <div className='dashboard_logo_container'>
           <img className='dashboard_logo_image' src={logo} />

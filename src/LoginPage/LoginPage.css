@@ -7,8 +7,8 @@
 } 
 
 .login-page_login_box {
-  width: 350px;
-  height: 500px;
+  width: 500px;
+  height: 600px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -16,9 +16,17 @@
   justify-content: space-evenly;
 }
 
+.login-page_login_guest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 40px;
+}
+
 
 .login-page_logo_container {
-  width: 80%;
+  width: 50%;
   display: flex;
   justify-content: center;
 }

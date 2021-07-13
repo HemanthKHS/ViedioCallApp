@@ -18,10 +18,12 @@ const GroupCall = (props) => {
 
   return (
     <>
+
       {!groupCallActive && localStream && callState !== callStates.CALL_IN_PROGRESS &&
-        <GroupCallButton onClickHandler={createRoom} label='Create room' />}
+        <GroupCallButton style={{width:100,height:100,backgroungColor:'yellow'}} onClickHandler={createRoom} label='Create room' />}
       {groupCallActive && <GroupCallRoom {...props} />}
       {groupCallActive && <GroupCallButton onClickHandler={leaveRoom} label='Leave room' />}
+    
     </>
   );
 };

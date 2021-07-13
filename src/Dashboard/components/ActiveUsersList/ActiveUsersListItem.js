@@ -19,6 +19,9 @@ const ActiveUsersListItem = (props) => {
   const username = sessionStorage.getItem('user')
   const { docs  } = UseFirestore(username);
   var newcount = 0
+
+  // updates every time new msgs comes
+
   useEffect(() => {
     var newcount = 0
     for (var i = 0; i < docs.length; i++) {
@@ -46,9 +49,9 @@ const ActiveUsersListItem = (props) => {
       </div>
       <span className='active_user_list_text'>{activeUser.username}</span>
 
-      <FcVideoCall onClick={handleListItemPressed} style={{height:30,width:30,marginLeft:10}}/>
+      <FcVideoCall id='hover-chat' onClick={handleListItemPressed} style={{height:30,width:30,marginLeft:10}}/>
       {/* <BiMessageRoundedDetail onClick={()=>{openChat(activeUser.username)}} style={{height:30,width:30,marginLeft:10}}/> */}
-      <span style={{marginLeft  : 10,backgroundColor:'red',width:20,borderRadius:'40px',display: 'flex',alignItems: 'center'}}>{newcount-count}</span>
+      {/* <span style={{marginLeft  : 10,backgroundColor:'red',width:20,borderRadius:'40px',display: 'flex',alignItems: 'center'}}>{newcount-count}</span> */}
     </div>
   );
 };

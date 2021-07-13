@@ -44,12 +44,12 @@ var firebaseConfig = {
   // }
 
   const googleAuth = new firebase.auth.GoogleAuthProvider() 
+  const fbAuth = new firebase.auth.FacebookAuthProvider() 
+  const GithubAuth = new firebase.auth.GithubAuthProvider() 
 
 
   const SocialMediaAuth = (provider) =>{
-    firebase.auth().signInWithPopup(provider).then((resp)=>{
-      // console.log(resp.user,'response')
-      
+    firebase.auth().signInWithPopup(provider).then((resp)=>{      
 return resp.user;
     }).catch((err)=>{
 console.log(err)
@@ -57,4 +57,4 @@ console.log(err)
   }
 
 
-   export  { projectFirestore , projectStorage , timestamp, firebase ,googleAuth ,SocialMediaAuth} 
+   export  { projectFirestore , projectStorage , timestamp, firebase ,googleAuth ,SocialMediaAuth,fbAuth,GithubAuth} 

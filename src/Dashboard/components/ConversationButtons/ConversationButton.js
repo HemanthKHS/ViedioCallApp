@@ -12,11 +12,13 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: '10px',
-    boxShadow: 'none',
+    // boxShadow: 'none',
     borderImage: 'none',
     borderStyle: 'none',
     borderWidth: '0px',
-    outline: 'none'
+    outline: 'none',
+    boxShadow: '0px 0px 0px  1px #66FCF1'
+
   }
 };
 

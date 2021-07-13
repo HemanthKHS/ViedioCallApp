@@ -16,6 +16,7 @@ const styles = {
   }
 };
 
+
 const CallingDialog = () => {
   const handleHangUpButtonPressed = () => {
     hangUp();

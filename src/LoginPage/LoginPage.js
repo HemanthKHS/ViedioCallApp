@@ -7,8 +7,18 @@ import { useHistory } from 'react-router-dom';
 import { setUsername } from '../store/actions/dashboardActions';
 import { registerNewUser } from '../utils/wssConnection/wssConnection';
 import './LoginPage.css';
-import { firebase ,googleAuth,SocialMediaAuth} from "../Dashboard/components/ChatBox/Firebase/FirebaseConfig";
+import { firebase ,googleAuth,SocialMediaAuth,fbAuth,GithubAuth} from "../Dashboard/components/ChatBox/Firebase/FirebaseConfig";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
+import Button from '@material-ui/core/Button';
+import { FcGoogle } from 'react-icons/fc';
+import { FaFacebook } from 'react-icons/fa';
+import { IoLogoGithub } from 'react-icons/io';
+import './extra.css'
+
+
+
+
+
 
 const LoginPage = ({ saveUsername }) => {
   const [username, setUsername] = useState('');
@@ -16,6 +26,8 @@ const LoginPage = ({ saveUsername }) => {
   const history = useHistory();
 
   const handleSubmitButtonPressed = () => {
+    localStorage.setItem('SigninGuest',true)
+    localStorage.setItem('userName',username)
     registerNewUser(username);
     saveUsername(username);
     history.push('/dashboard');
@@ -60,7 +72,9 @@ const HandleLogin = async (provider) =>{
   firebase.auth().signInWithPopup(provider).then((resp)=>{      
     
       var userName = firebase.auth().currentUser.displayName;
-    registerNewUser(userName);
+      localStorage.setItem('userName',userName)
+      localStorage.setItem('SinginFirebase',true)
+    registerNewUser(userName);  
     saveUsername(userName);
     history.push('/dashboard');
 
@@ -73,7 +87,20 @@ const HandleLogin = async (provider) =>{
 
 
   return (
-    <div className='login-page_container background_main_color' >
+    <div className='login-page_container ' style={{backgroundColor:'#1F2833',display:'grid',gridTemplateColumns:'1.5fr 1fr'}} >
+      <div style={{marginLeft:50,marginTop:-200}}>
+        <h1 style={{color:'#66FCF1',fontSize:'100px'}}>Connect App</h1>
+        <span>This Project is Made as part of Microsoft Engage Program <div class="loader">
+  <div class="logo">
+    <div class="red"></div>
+    <div class="green"></div>
+    <div class="blue"></div>
+    <div class="yellow"></div>
+  </div>
+  <p>Microsoft</p>
+</div></span>
+      </div>
+
       <div className='login-page_login_box background_secondary_color'>
         <div className='login-page_logo_container'>
           <img className='login-page_logo_image' src={logo} alt='VideoTalker' />
@@ -81,15 +108,24 @@ const HandleLogin = async (provider) =>{
         <div className='login-page_title_container'>
           <h2>Get on Board</h2>
         </div>
-        <UsernameInput username={username} setUsername={setUsername} />
-        <SubmitButton handleSubmitButtonPressed={handleSubmitButtonPressed} />
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr'}}>
+        <div>
+        <Button variant="contained" style={{backgroundColor:'white',color:'gray',textTransform:'none',marginBottom:10,marginLeft:40,width:200}} onClick={()=>{HandleLogin(googleAuth)}}> <FcGoogle style={{width:22,height:22, marginRight:10,borderRadius:0}}/>Sign In With Google</Button>
+        <Button variant="contained" style={{backgroundColor:'white',color:'gray',textTransform:'none',marginBottom:10,marginLeft:40,width:200}} onClick={()=>{HandleLogin(fbAuth)}}> <FaFacebook style={{width:22,height:22,marginLeft:-30, marginRight:10,borderRadius:0,color:'#4267B2'}}/>Sign In With Fb</Button>
+        <Button variant="contained" style={{backgroundColor:'white',color:'gray',textTransform:'none',marginBottom:10,marginLeft:40,width:200}} onClick={()=>{HandleLogin(GithubAuth)}}> <IoLogoGithub style={{width:22,height:22, marginRight:10,borderRadius:0,color:'black'}}/>Sign In With GitHub</Button>
+        </div>
 
+        <div style={{display:'grid',gridTemplateRows:'1fr 1fr 1fr',transform:'translateY(-50px)',marginLeft:20}}>
+    <span style={{marginLeft:30,marginTop:20 }} >Or Login As Guest</span>
+        <UsernameInput style={{}} username={username} setUsername={setUsername} />
+        <SubmitButton handleSubmitButtonPressed={handleSubmitButtonPressed} />
+        </div>
+        </div>
         {/* <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           /> */}
 
-          <button onClick={()=>{HandleLogin(googleAuth)}}>Google</button>
       </div>
     </div>
   );
